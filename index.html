@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+    <script src="https://tonejs.github.io/build/Tone.min.js"></script>
+    <title>あの楽器</title>
+    <style>
+        html {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        #waku {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .kenNormal {
+            display: inline-block;
+            width: 4%;
+            height: 100%;
+            color: #888;
+            background-color: #000000;
+            border: none;
+            border-right: 1px solid #666;
+        }
+
+        .ken {
+            background-color: #222;
+        }
+
+        .kenNormal span {
+            padding-bottom: 1em;
+            display: block;
+            width: 4%;
+            text-align: center;
+            bottom: 0;
+            position: absolute;
+        }
+
+        svg {
+            bottom: 0;
+            position: absolute;
+            /* display: none; */
+            /* overflow: hidden; */
+        }
+    </style>
+</head>
+
+<body>
+    <div id="waku">
+        <template v-for="list in lists">
+            <div class="kenNormal" v-bind:class="{ken :list.ken}" v-on:click="playsound(list.key)">
+                <span>{{list.key}}</span>
+            </div>
+        </template>
+    </div>
+    <svg id="test" xmlns="http://www.w3.org/2000/svg">
+        <!-- <rect x="0" y="0" class="rect" width="100" height="10" fill="#86cecb" /> -->
+        <line x1="50" y1="50" x2="150" y2="-150" stroke="#86cecb" />
+    </svg>
+    <script>
+        var synth = new Tone.Synth().toMaster();
+
+        var app = new Vue({
+            el: '#waku',
+            data: {
+                lists: [
+                    { key: "C3", ken: false },
+                    { key: "C#3", ken: true },
+                    { key: "D3", ken: false },
+                    { key: "D#3", ken: true },
+                    { key: "E3", ken: false },
+                    { key: "F3", ken: false },
+                    { key: "F#3", ken: true },
+                    { key: "G3", ken: false },
+                    { key: "G#3", ken: true },
+                    { key: "A3", ken: false },
+                    { key: "A#3", ken: true },
+                    { key: "B3", ken: false },
+                    { key: "C4", ken: false },
+                    { key: "C#4", ken: true },
+                    { key: "D4", ken: false },
+                    { key: "D#4", ken: true },
+                    { key: "E4", ken: false },
+                    { key: "F4", ken: false },
+                    { key: "F#4", ken: true },
+                    { key: "G4", ken: false },
+                    { key: "G#4", ken: true },
+                    { key: "A4", ken: false },
+                    { key: "A#4", ken: true },
+                    { key: "B4", ken: false },
+                    { key: "C5", ken: false }
+                ]
+            },
+            methods: {
+                playsound: function (key) {
+                    console.log(key);
+                    synth.triggerAttackRelease(key, "8n");
+                }
+            }
+        });
+
+        document.body.addEventListener("click", function (event) {
+            var x = event.pageX;
+            var y = event.pageY;
+            console.log(x);
+            console.log(y);
+        });
+    </script>
+</body>
+
+</html>

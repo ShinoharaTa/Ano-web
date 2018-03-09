@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
     <script src="https://tonejs.github.io/build/Tone.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <title>あの楽器</title>
     <style>
         html {
@@ -31,14 +32,29 @@
             display: inline-block;
             width: 4%;
             height: 100%;
-            color: #888;
+            color: #444;
             background-color: #000000;
             border: none;
-            border-right: 1px solid #666;
+            /* border-right: 1px solid #666; */
+        }
+
+        .kenWaku {
+            display: inline-block;
+            width: 4%;
+            height: 100%;
+            border: none;
+        }
+
+        .waku {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
         }
 
         .ken {
-            background-color: #222;
+            background-color: #111;
         }
 
         .kenNormal span {
@@ -51,26 +67,42 @@
         }
 
         svg {
-            bottom: 0;
             position: absolute;
-            /* display: none; */
+            left: 50%;
+            top: 50%;
+            opacity: 1;
+            display: none;
             /* overflow: hidden; */
+        }
+
+        .fade {
+            transition: opacity 2s
         }
     </style>
 </head>
 
 <body>
     <div id="waku">
-        <template v-for="list in lists">
-            <div class="kenNormal" v-bind:class="{ken :list.ken}" v-on:click="playsound(list.key)">
-                <span>{{list.key}}</span>
-            </div>
-        </template>
+        <div class="waku">
+            <template v-for="list in lists">
+                <div class="kenNormal" v-bind:class="{ken :list.ken}">
+                    <span>{{list.key}}</span>
+                </div>
+            </template>
+        </div>
+        <div class="waku">
+            <svg id="rect" xmlns="http://www.w3.org/2000/svg" v-bind:class="{fade :setting.svg}">
+                <!-- <rect x="0" y="0" class="rect" width="100" height="10" fill="#86cecb" /> -->
+                <line x1="50" y1="50" x2="150" y2="150" stroke="#86cecb" />
+            </svg>
+        </div>
+        <div class="waku">
+            <template v-for="list in lists">
+                <div class="kenWaku" v-on:click="playsound(list.key)">
+                </div>
+            </template>
+        </div>
     </div>
-    <svg id="test" xmlns="http://www.w3.org/2000/svg">
-        <!-- <rect x="0" y="0" class="rect" width="100" height="10" fill="#86cecb" /> -->
-        <line x1="50" y1="50" x2="150" y2="-150" stroke="#86cecb" />
-    </svg>
     <script>
         var synth = new Tone.Synth().toMaster();
 
@@ -103,12 +135,16 @@
                     { key: "A#4", ken: true },
                     { key: "B4", ken: false },
                     { key: "C5", ken: false }
-                ]
+                ],
+                setting: {
+                    svg: false
+                }
             },
             methods: {
                 playsound: function (key) {
                     console.log(key);
                     synth.triggerAttackRelease(key, "8n");
+                    this.data.setting.svg = true;
                 }
             }
         });

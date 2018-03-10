@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
     <script src="https://tonejs.github.io/build/Tone.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
     <title>あの楽器</title>
     <style>
         html {
@@ -35,7 +35,6 @@
             color: #444;
             background-color: #000000;
             border: none;
-            /* border-right: 1px solid #666; */
         }
 
         .kenWaku {
@@ -65,19 +64,6 @@
             bottom: 0;
             position: absolute;
         }
-
-        svg {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            opacity: 1;
-            display: none;
-            /* overflow: hidden; */
-        }
-
-        .fade {
-            transition: opacity 2s
-        }
     </style>
 </head>
 
@@ -90,11 +76,7 @@
                 </div>
             </template>
         </div>
-        <div class="waku">
-            <svg id="rect" xmlns="http://www.w3.org/2000/svg" v-bind:class="{fade :setting.svg}">
-                <!-- <rect x="0" y="0" class="rect" width="100" height="10" fill="#86cecb" /> -->
-                <line x1="50" y1="50" x2="150" y2="150" stroke="#86cecb" />
-            </svg>
+        <div class="waku" id="view">
         </div>
         <div class="waku">
             <template v-for="list in lists">
@@ -136,15 +118,11 @@
                     { key: "B4", ken: false },
                     { key: "C5", ken: false }
                 ],
-                setting: {
-                    svg: false
-                }
             },
             methods: {
                 playsound: function (key) {
                     console.log(key);
                     synth.triggerAttackRelease(key, "8n");
-                    this.data.setting.svg = true;
                 }
             }
         });
@@ -154,6 +132,45 @@
             var y = event.pageY;
             console.log(x);
             console.log(y);
+        });
+
+        $('.kenWaku').click(function (e) {
+            var randType = Math.floor(Math.random() * (3 - 0) + 0);
+            var randNum = Math.floor(Math.random() * (360 - 0) + 0);
+            var randSize = Math.floor(Math.random() * (512 - 300) + 300);
+            //randType = 2;
+            switch (randType) {
+                case 0:
+                    $('#view').append(
+                        $('<div class="svg" style="position: absolute; margin: 0; padding:0 ; left:'
+                            + (e.pageX - randSize / 2) + 'px; top: '
+                            + (e.pageY - randSize / 2) + 'px; width: '
+                            + randSize + 'px; height: ' + randSize + 'px; transform: rotate(' + randNum + 'deg);">')
+                            .append('<svg width="' + randSize + '" height="' + randSize + '" viewBox="0 0 ' + randSize + ' ' + randSize + '">'
+                                + '<circle r="' + randSize / 2.2 + '" cx="' + randSize / 2 + '" cy="' + randSize / 2 + '" stroke="#86cecb" stroke-width="20" fill-opacity="0" ></circle></svg>'));
+                    break;
+                case 1:
+                    $('#view').append(
+                        $('<div class="svg" style="position: absolute; margin: 0; padding:0 ; left:'
+                            + (e.pageX - randSize / 2) + 'px; top: '
+                            + (e.pageY - randSize / 2) + 'px; width: '
+                            + randSize + 'px; height: ' + randSize + 'px; transform: rotate(' + randNum + 'deg);">')
+                            .append('<svg width="' + randSize + '" height="' + randSize + '" viewBox="0 0 ' + randSize + ' ' + randSize + '">'
+                                + '<rect width="' + randSize + '" height="' + randSize + '" x="0" y="0" stroke="#86cecb" stroke-width="30" fill-opacity="0" ></rect></svg>'));
+                    break;
+                case 2:
+                    //線
+                    //この場合はランダムエフェクトを0に固定．
+                    $('#view').append(
+                        $('<div class="svg" style="position: absolute; margin: 0; padding:0 ; left:'
+                            + (e.pageX - 4000 / 2) + 'px; top: '
+                            + (e.pageY - 20 / 2) + 'px; width: '
+                            + 4000 + 'px; height: ' + 20 + 'px; transform: rotate(' + randNum + 'deg);">')
+                            .append('<svg width="4000" height="20" viewBox="0 0 4000 20">'
+                                + '<rect width="4000" height="20" x="0" y="0" stroke-width="0" fill-opacity="1" fill="#86cecb"></rect></svg>'));
+                    break;
+            }
+            $('.svg').fadeOut(1500);
         });
     </script>
 </body>

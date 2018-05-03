@@ -5,17 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>あの楽器 on Web</title>
+    <meta name="description" content="あの楽器をWebブラウザで使おう">
+    <meta property="og:title" content="あの楽器 on Web">
+    <meta property="og:description" content="あの楽器をWebブラウザで使おう">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://shinoharata.github.io/Ano-web/">
+    <meta property="og:image" content="https://shinoharata.github.io/Ano-web/site.png">
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@SHINOHARATTT" />
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
     <script src="https://tonejs.github.io/build/Tone.min.js"></script>
     <script src="js/jquery-3.3.1.min.js"></script>
-    <title>あの楽器</title>
     <style>
         html {
             height: 100%;
             resize: none;
             overflow: hidden;
         }
-
+        
         body {
             margin: 0;
             padding: 0;
@@ -23,13 +31,13 @@
             width: 100%;
             overflow: hidden;
         }
-
+        
         #waku {
             height: 100%;
             margin: 0;
             padding: 0;
         }
-
+        
         .kenNormal {
             display: inline-block;
             width: 4%;
@@ -38,14 +46,14 @@
             background-color: #000000;
             border: none;
         }
-
+        
         .kenWaku {
             display: inline-block;
             width: 4%;
             height: 100%;
             border: none;
         }
-
+        
         .waku {
             position: absolute;
             left: 0;
@@ -53,11 +61,11 @@
             height: 100%;
             width: 100%;
         }
-
+        
         .ken {
             background-color: #111;
         }
-
+        
         .kenNormal span {
             padding-bottom: 1em;
             display: block;
@@ -89,88 +97,137 @@
     </div>
     <script>
         var synth = new Tone.Synth().toMaster();
-
         var app = new Vue({
             el: '#waku',
             data: {
-                lists: [
-                    { key: "F3", ken: false },
-                    { key: "F#3", ken: true },
-                    { key: "G3", ken: false },
-                    { key: "G#3", ken: true },
-                    { key: "A3", ken: false },
-                    { key: "A#3", ken: true },
-                    { key: "B3", ken: false },
-                    { key: "C4", ken: false },
-                    { key: "C#4", ken: true },
-                    { key: "D4", ken: false },
-                    { key: "D#4", ken: true },
-                    { key: "E4", ken: false },
-                    { key: "F4", ken: false },
-                    { key: "F#4", ken: true },
-                    { key: "G4", ken: false },
-                    { key: "G#4", ken: true },
-                    { key: "A4", ken: false },
-                    { key: "A#4", ken: true },
-                    { key: "B4", ken: false },
-                    { key: "C5", ken: false },
-                    { key: "C#5", ken: true },
-                    { key: "D5", ken: false },
-                    { key: "D#5", ken: true },
-                    { key: "E5", ken: false },
-                    { key: "F5", ken: false }
-                ],
+                lists: [{
+                    key: "F3",
+                    ken: false
+                }, {
+                    key: "F#3",
+                    ken: true
+                }, {
+                    key: "G3",
+                    ken: false
+                }, {
+                    key: "G#3",
+                    ken: true
+                }, {
+                    key: "A3",
+                    ken: false
+                }, {
+                    key: "A#3",
+                    ken: true
+                }, {
+                    key: "B3",
+                    ken: false
+                }, {
+                    key: "C4",
+                    ken: false
+                }, {
+                    key: "C#4",
+                    ken: true
+                }, {
+                    key: "D4",
+                    ken: false
+                }, {
+                    key: "D#4",
+                    ken: true
+                }, {
+                    key: "E4",
+                    ken: false
+                }, {
+                    key: "F4",
+                    ken: false
+                }, {
+                    key: "F#4",
+                    ken: true
+                }, {
+                    key: "G4",
+                    ken: false
+                }, {
+                    key: "G#4",
+                    ken: true
+                }, {
+                    key: "A4",
+                    ken: false
+                }, {
+                    key: "A#4",
+                    ken: true
+                }, {
+                    key: "B4",
+                    ken: false
+                }, {
+                    key: "C5",
+                    ken: false
+                }, {
+                    key: "C#5",
+                    ken: true
+                }, {
+                    key: "D5",
+                    ken: false
+                }, {
+                    key: "D#5",
+                    ken: true
+                }, {
+                    key: "E5",
+                    ken: false
+                }, {
+                    key: "F5",
+                    ken: false
+                }],
             },
             methods: {
-                playsound: function (key) {
+                playsound: function(key) {
                     console.log(key);
                     synth.triggerAttackRelease(key, "8n");
                 }
             }
         });
 
-        document.body.addEventListener("click", function (event) {
+        document.body.addEventListener("click", function(event) {
             var x = event.pageX;
             var y = event.pageY;
             console.log(x);
             console.log(y);
         });
 
-        $('.kenWaku').click(function (e) {
+        $('.kenWaku').click(function(e) {
             var randType = Math.floor(Math.random() * (3 - 0) + 0);
             var randNum = Math.floor(Math.random() * (360 - 0) + 0);
-            var randSize = Math.floor(Math.random() * ($(window).width()/3 - $(window).width()/5) + $(window).width()/5);
-            var ObjSize = $(window).width()/100;
+            var randSize = Math.floor(Math.random() * ($(window).width() / 3 - $(window).width() / 5) + $(window).width() / 5);
+            var ObjSize = $(window).width() / 100;
             //randType = 2;
             switch (randType) {
                 case 0:
+                    //マル
                     $('#view').append(
-                        $('<div class="svg" style="position: absolute; margin: 0; padding:0 ; left:'
-                            + (e.pageX - randSize / 2) + 'px; top: '
-                            + (e.pageY - randSize / 2) + 'px; width: '
-                            + randSize + 'px; height: ' + randSize + 'px; transform: rotate(' + randNum + 'deg);">')
-                            .append('<svg width="' + randSize + '" height="' + randSize + '" viewBox="0 0 ' + randSize + ' ' + randSize + '">'
-                                + '<circle r="' + randSize / 2.2 + '" cx="' + randSize / 2 + '" cy="' + randSize / 2 + '" stroke="#86cecb" stroke-width="' + ObjSize + '" fill-opacity="0" ></circle></svg>'));
+                        $('<div class="svg" style="position: absolute; margin: 0; padding:0 ; left:' +
+                            (e.pageX - randSize / 2) + 'px; top: ' +
+                            (e.pageY - randSize / 2) + 'px; width: ' +
+                            randSize + 'px; height: ' + randSize + 'px; transform: rotate(' + randNum + 'deg);">')
+                        .append('<svg width="' + randSize + '" height="' + randSize + '" viewBox="0 0 ' + randSize + ' ' + randSize + '">' +
+                            '<circle r="' + randSize / 2.2 + '" cx="' + randSize / 2 + '" cy="' + randSize / 2 + '" stroke="#86cecb" stroke-width="' + ObjSize + '" fill-opacity="0" ></circle></svg>'));
                     break;
                 case 1:
+                    //シカク
                     $('#view').append(
-                        $('<div class="svg" style="position: absolute; margin: 0; padding:0 ; left:'
-                            + (e.pageX - randSize / 2) + 'px; top: '
-                            + (e.pageY - randSize / 2) + 'px; width: '
-                            + randSize + 'px; height: ' + randSize + 'px; transform: rotate(' + randNum + 'deg);">')
-                            .append('<svg width="' + randSize + '" height="' + randSize + '" viewBox="0 0 ' + randSize + ' ' + randSize + '">'
-                                + '<rect width="' + randSize + '" height="' + randSize + '" x="0" y="0" stroke="#86cecb" stroke-width="' + ObjSize*2 + '" fill-opacity="0" ></rect></svg>'));
+                        $('<div class="svg" style="position: absolute; margin: 0; padding:0 ; left:' +
+                            (e.pageX - randSize / 2) + 'px; top: ' +
+                            (e.pageY - randSize / 2) + 'px; width: ' +
+                            randSize + 'px; height: ' + randSize + 'px; transform: rotate(' + randNum + 'deg);">')
+                        .append('<svg width="' + randSize + '" height="' + randSize + '" viewBox="0 0 ' + randSize + ' ' + randSize + '">' +
+                            '<rect width="' + randSize + '" height="' + randSize + '" x="0" y="0" stroke="#86cecb" stroke-width="' + ObjSize * 2 + '" fill-opacity="0" ></rect></svg>'));
                     break;
                 case 2:
                     //線
-                    //この場合はランダムエフェクトを0に固定．
                     $('#view').append(
-                        $('<div class="svg" style="position: absolute; margin: 0; padding:0 ; left:'
-                            + (e.pageX - 4000 / 2) + 'px; top: '
-                            + (e.pageY - ObjSize / 2) + 'px; width: '
-                            + 4000 + 'px; height: ' + ObjSize + 'px; transform: rotate(' + randNum + 'deg);">')
-                            .append('<svg width="4000" height="' + ObjSize + '" viewBox="0 0 4000 ' + ObjSize + '">'
-                                + '<rect width="4000" height="' + ObjSize + '" x="0" y="0" stroke-width="0" fill-opacity="1" fill="#86cecb"></rect></svg>'));
+                        $('<div class="svg" style="position: absolute; margin: 0; padding:0 ; left:' +
+                            (e.pageX - 4000 / 2) + 'px; top: ' +
+                            (e.pageY - ObjSize / 2) + 'px; width: ' +
+                            4000 + 'px; height: ' + ObjSize + 'px; transform: rotate(' + randNum + 'deg);">')
+                        .append('<svg width="4000" height="' + ObjSize + '" viewBox="0 0 4000 ' + ObjSize + '">' +
+                            '<rect width="4000" height="' + ObjSize + '" x="0" y="0" stroke-width="0" fill-opacity="1" fill="#86cecb"></rect></svg>'));
                     break;
             }
             $('.svg').fadeOut(1500);

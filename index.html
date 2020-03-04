@@ -96,7 +96,7 @@
         </div>
         <div class="waku">
             <template v-for="list in lists">
-                <div class="kenWaku" v-on:click="playsound(list.key)">
+                <div class="kenWaku" v-on:mousedown="playsound(list.key)">
                 </div>
             </template>
         </div>
@@ -191,14 +191,14 @@
             }
         });
 
-        document.body.addEventListener("click", function(event) {
+        document.body.addEventListener("mousedown", function(event) {
             var x = event.pageX;
             var y = event.pageY;
             console.log(x);
             console.log(y);
         });
 
-        $('.kenWaku').click(function(e) {
+        $('.kenWaku').mousedown(function(e) {
             var randType = Math.floor(Math.random() * (3 - 0) + 0);
             var randNum = Math.floor(Math.random() * (360 - 0) + 0);
             var randSize = Math.floor(Math.random() * ($(window).width() / 3 - $(window).width() / 5) + $(window).width() / 5);
